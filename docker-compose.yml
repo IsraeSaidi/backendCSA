@@ -1,0 +1,19 @@
+services:
+  mysql:
+    image: mysql:latest
+    command: --default-authentication-plugin=caching_sha2_password
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'evae'
+      MYSQL_ROOT_PASSWORD: 'root'
+    volumes:
+      - ./bdd.sql:/docker-entrypoint-initdb.d/bdd.sql
+    ports:
+      - "3306:3306"
+  spring-app:
+    build:
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql

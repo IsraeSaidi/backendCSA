@@ -1,10 +1,13 @@
 use evae;
 -- Table 'USER'
-    Create table user(
-        id int primary key AUTO_INCREMENT,
-        email varchar(255) not null,
-        password varchar(255) not null,
-        role varchar(255) not null    );
+CREATE TABLE user (
+                      id INT PRIMARY KEY AUTO_INCREMENT,
+                      nom VARCHAR(255) NOT NULL,
+                      email VARCHAR(255) NOT NULL,
+                      password VARCHAR(255) NOT NULL,
+                      code_prof VARCHAR(255),
+                      role ENUM ('ADMIN', 'ETUDIANT', 'ENSEIGNANT') NOT NULL
+);
 -- Table 'FORMATION'
 CREATE TABLE formation (
                            CODE_FORMATION VARCHAR(8) NOT NULL,
@@ -74,9 +77,6 @@ CREATE TABLE etudiant (
 );
 
 
-INSERT INTO user(email,password,role) VALUES
-                           ('israe.saidi@gmail.com','israe2000','etudiant'),
-                           ('safae.kaddouri@gmail.com','safae2000','prof');
 
 
 INSERT INTO formation VALUES

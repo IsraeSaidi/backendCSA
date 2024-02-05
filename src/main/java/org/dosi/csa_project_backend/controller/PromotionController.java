@@ -1,9 +1,7 @@
 package org.dosi.csa_project_backend.controller;
 
 
-import org.dosi.csa_project_backend.entity.Etudiant;
 import org.dosi.csa_project_backend.entity.Promotion;
-import org.dosi.csa_project_backend.service.EtudiantService;
 import org.dosi.csa_project_backend.service.PromotionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,4 +27,5 @@ public class PromotionController {
         Promotion createdPromotion = promotionService.addPromotion(promotion);
         return new ResponseEntity<>(createdPromotion, HttpStatus.CREATED);
     }
+
 }

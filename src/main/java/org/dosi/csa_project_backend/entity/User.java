@@ -1,9 +1,16 @@
 package org.dosi.csa_project_backend.entity;
 
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @Entity
-public class User {
+public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
@@ -15,8 +22,16 @@ public class User {
     @Column(name = "password")
     private String password;
     @Basic
+    @Enumerated(EnumType.STRING)
     @Column(name = "role")
-    private String role;
+    private Role role;
+    @Basic
+    @Column(name = "nom")
+    private String nom;
+    @Basic
+    @Column(name = "code_prof")
+    private String codeProf;
+
 
     public int getId() {
         return id;
@@ -34,6 +49,10 @@ public class User {
         this.email = email;
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(role.name()));
+    }
     public String getPassword() {
         return password;
     }
@@ -42,35 +61,52 @@ public class User {
         this.password = password;
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
+    @Override
+    public String getUsername() {
+        return email; // Utiliser l'e-mail comme nom d'utilisateur
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public boolean isAccountNonExpired() {
+        return true; // Ajuster si nécessaire
+    }
 
-        User user = (User) o;
+    @Override
+    public boolean isAccountNonLocked() {
+        return true; // Ajuster si nécessaire
+    }
 
-        if (id != user.id) return false;
-        if (email != null ? !email.equals(user.email) : user.email != null) return false;
-        if (password != null ? !password.equals(user.password) : user.password != null) return false;
-        if (role != null ? !role.equals(user.role) : user.role != null) return false;
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true; // Ajuster si nécessaire
+    }
 
+    @Override
+    public boolean isEnabled() {
         return true;
     }
 
-    @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + (email != null ? email.hashCode() : 0);
-        result = 31 * result + (password != null ? password.hashCode() : 0);
-        result = 31 * result + (role != null ? role.hashCode() : 0);
-        return result;
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public String getCodeProf() {
+        return codeProf;
+    }
+
+    public void setCodeProf(String codeProf) {
+        this.codeProf = codeProf;
     }
 }

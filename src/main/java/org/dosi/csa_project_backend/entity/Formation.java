@@ -6,7 +6,6 @@ import java.sql.Date;
 
 @Entity
 public class Formation {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "CODE_FORMATION")
     private String codeFormation;

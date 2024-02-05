@@ -6,7 +6,7 @@ import java.sql.Date;
 
 @Entity
 public class Etudiant {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @Id
     @Column(name = "NO_ETUDIANT_NAT")
     private String noEtudiantNat;

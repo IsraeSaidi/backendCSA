@@ -6,7 +6,6 @@ import java.sql.Date;
 
 @Entity
 public class Promotion {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "ANNEE_PRO")
     private String anneePro;
